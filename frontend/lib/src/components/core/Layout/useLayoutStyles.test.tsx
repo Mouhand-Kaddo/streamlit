@@ -1125,7 +1125,7 @@ describe("#useLayoutStyles", () => {
 
     describe("with text alignment configuration", () => {
       it.each([
-        [streamlit.TextAlignmentConfig.Alignment.LEFT, "left"],
+        [streamlit.TextAlignmentConfig.Alignment.LEFT, "start"],
         [streamlit.TextAlignmentConfig.Alignment.CENTER, "center"],
         [streamlit.TextAlignmentConfig.Alignment.RIGHT, "right"],
         [streamlit.TextAlignmentConfig.Alignment.JUSTIFY, "justify"],

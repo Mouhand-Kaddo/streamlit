@@ -334,6 +334,21 @@ def test_dollar_amounts_render_as_text(app: Page):
     expect(escaped_with_formula).to_contain_text("Costs $5, where")
 
 
+def test_markdown_blocks_detect_text_direction(app: Page):
+    """Test that each Markdown block takes its direction from its own text."""
+    markdown = get_element_by_key(app, "text_direction")
+
+    english = markdown.get_by_text("Hello world.")
+    expect(english).to_have_css("direction", "ltr")
+    expect(english).to_have_css("text-align", "start")
+
+    arabic = markdown.get_by_text("مرحبا بكم في التطبيق.")
+    expect(arabic).to_have_css("direction", "rtl")
+    expect(arabic).to_have_css("text-align", "start")
+
+    expect(markdown.get_by_role("listitem")).to_have_css("direction", "rtl")
+
+
 def test_badge_elements(themed_app: Page, assert_snapshot: ImageCompareFunction):
     """Test that badge elements are displayed correctly."""
     badge_container = get_element_by_key(themed_app, "badge_elements")

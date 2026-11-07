@@ -57,7 +57,7 @@ const alignmentMap: Record<
   streamlit.TextAlignmentConfig.Alignment,
   React.CSSProperties["textAlign"]
 > = {
-  [streamlit.TextAlignmentConfig.Alignment.LEFT]: "left",
+  [streamlit.TextAlignmentConfig.Alignment.LEFT]: "start",
   [streamlit.TextAlignmentConfig.Alignment.CENTER]: "center",
   [streamlit.TextAlignmentConfig.Alignment.RIGHT]: "right",
   [streamlit.TextAlignmentConfig.Alignment.JUSTIFY]: "justify",

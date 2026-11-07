@@ -894,6 +894,34 @@ describe("StreamlitMarkdown", () => {
     expect(h1).toHaveAttribute("data-test", "lol")
   })
 
+  it("lets each text block detect its own direction", async () => {
+    const source = [
+      "## عنوان",
+      "مرحبا بكم.",
+      "Hello there.",
+      "- عنصر",
+      "| عمود |\n| --- |\n| قيمة |",
+      "```\nprint('hi')\n```",
+    ].join("\n\n")
+    render(<StreamlitMarkdown source={source} allowHTML={false} />)
+
+    expect(screen.getByRole("heading")).toHaveAttribute("dir", "auto")
+    expect(screen.getByText("مرحبا بكم.")).toHaveAttribute("dir", "auto")
+    expect(screen.getByText("Hello there.")).toHaveAttribute("dir", "auto")
+    expect(screen.getByRole("listitem")).toHaveAttribute("dir", "auto")
+    expect(screen.getByRole("columnheader")).toHaveAttribute("dir", "auto")
+    expect(screen.getByRole("cell")).toHaveAttribute("dir", "auto")
+    const codeBlock = await screen.findByTestId("stMarkdownPre")
+    expect(codeBlock.closest("[dir]")).toBeNull()
+  })
+
+  it("keeps an explicit dir from HTML", async () => {
+    const source = '<p dir="ltr">مرحبا</p>'
+    render(<StreamlitMarkdown source={source} allowHTML />)
+
+    expect(await screen.findByText("مرحبا")).toHaveAttribute("dir", "ltr")
+  })
+
   it("displays captions correctly", () => {
     const source = "hello this is a caption"
     render(<StreamlitMarkdown allowHTML={false} source={source} isCaption />)

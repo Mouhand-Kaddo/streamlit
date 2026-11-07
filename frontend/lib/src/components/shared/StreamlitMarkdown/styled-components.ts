@@ -336,14 +336,15 @@ export const StyledStreamlitMarkdown =
         },
 
         li: {
-          margin: "0.2em 0 0.2em 1.15em",
-          padding: "0 0 0 0.3em",
+          marginBlock: "0.2em",
+          marginInline: "1.15em 0",
+          paddingInline: "0.3em 0",
         },
 
         "li.task-list-item": {
           listStyleType: "none",
           padding: "0",
-          marginLeft: "0",
+          marginInlineStart: "0",
           "input[type='checkbox']": {
             verticalAlign: "middle",
             margin: "0 0.35em 0.1em 0",
@@ -479,9 +480,9 @@ export const StyledStreamlitMarkdown =
         // min-content, which the inherited `overflow-wrap: break-word` cannot
         // shrink (gh-16618).
         "& > ul, & > ol": {
-          // Keep list text left-aligned even when `text_alignment` centers,
+          // Keep list text start-aligned even when `text_alignment` centers,
           // right-aligns, or justifies the surrounding markdown.
-          textAlign: "left",
+          textAlign: "start",
         },
 
         // Allow long Latex formulas that are not inline (i.e. either from `st.latex`

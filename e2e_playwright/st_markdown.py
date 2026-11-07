@@ -657,3 +657,8 @@ with st.container(key="wrap_false_markdown_help", width=200):
 with st.container(key="dollar_amounts"):
     st.markdown("Quota: $315K of $1.46M")
     st.markdown(r"Costs \$5, where $r$ is the rate")
+
+with st.container(key="text_direction"):
+    st.markdown(
+        "Hello world.\n\nمرحبا بكم في التطبيق.\n\n- عنصر القائمة الأول."  # noqa: RUF001
+    )

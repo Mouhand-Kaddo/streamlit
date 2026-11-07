@@ -308,6 +308,38 @@ function rehypeSetCodeInlineProperty() {
   }
 }
 
+const AUTO_DIRECTION_TAGS = new Set([
+  "p",
+  "h1",
+  "h2",
+  "h3",
+  "h4",
+  "h5",
+  "h6",
+  "li",
+  "th",
+  "td",
+])
+
+/**
+ * A rehype plugin that sets `dir="auto"` on text blocks without an explicit
+ * `dir`, so each paragraph, heading, list item, and table cell takes its
+ * direction from its first strong character. This lets right-to-left text
+ * (Arabic, Hebrew, Persian) render correctly next to left-to-right text.
+ */
+function rehypeSetAutoDirection() {
+  return (tree: HastRoot) => {
+    visit(tree, "element", (node: Element) => {
+      if (
+        AUTO_DIRECTION_TAGS.has(node.tagName) &&
+        node.properties.dir === undefined
+      ) {
+        node.properties.dir = "auto"
+      }
+    })
+  }
+}
+
 /**
  * Creates a URL-friendly anchor ID from a text string.
  *
@@ -1457,6 +1489,8 @@ export const RenderedMarkdown = memo(function RenderedMarkdown({
     if (allowHTML && wrappedRawPlugin) {
       plugins.push(wrappedRawPlugin)
     }
+
+    plugins.push(rehypeSetAutoDirection)
 
     // This plugin must run last to ensure the inline property is set correctly
     // and not overwritten by other plugins like rehypeRaw
